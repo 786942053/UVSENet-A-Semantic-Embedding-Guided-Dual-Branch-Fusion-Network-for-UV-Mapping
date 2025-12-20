@@ -1,0 +1,1 @@
+# UVSENet-A-Semantic-Embedding-Guided-Dual-Branch-Fusion-Network-for-UV-Mapping
