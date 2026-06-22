@@ -1,0 +1,330 @@
+import os
+import os.path as osp
+import numpy as np
+import torch
+from torch.utils.data import Dataset
+import cv2
+import matplotlib.pyplot as plt
+import albumentations as albu
+from .transform import *
+import matplotlib.patches as mpatches
+from PIL import Image
+import random
+import tifffile
+
+# CLASSES = ('Building', 'Background')
+# PALETTE = [[255, 255, 255],  [0, 0, 0]]
+# # CLASSES = ('Background', 'Building')
+# # PALETTE = [[0, 0, 0], [255, 255, 255]] 
+
+# ORIGIN_IMG_SIZE = (256, 256)
+# INPUT_IMG_SIZE = (256, 256)
+# TEST_IMG_SIZE = (256, 256)
+
+
+# def get_training_transform():
+#     train_transform = [
+#         albu.HorizontalFlip(p=0.5),
+#         albu.VerticalFlip(p=0.5),
+#         albu.Normalize()
+#     ]
+#     return albu.Compose(train_transform)
+
+
+# def train_aug(img, mask):
+#     # crop_aug = Compose([RandomScale(scale_list=[0.75, 1.0, 1.25, 1.5], mode='value'),
+#     #                     SmartCropV1(crop_size=384, max_ratio=0.5, ignore_index=len(CLASSES), nopad=False)])
+#     # img, mask = crop_aug(img, mask)
+#     img, mask = np.array(img), np.array(mask)
+#     aug = get_training_transform()(image=img.copy(), mask=mask.copy())
+#     img, mask = aug['image'], aug['mask']
+#     return img, mask
+
+
+# def get_val_transform():
+#     val_transform = [
+#         albu.Normalize()
+#     ]
+#     return albu.Compose(val_transform)
+
+# def val_aug(img, mask):
+#     img, mask = np.array(img), np.array(mask)
+#     aug = get_val_transform()(image=img.copy(), mask=mask.copy())
+#     img, mask = aug['image'], aug['mask']
+#     return img, mask
+
+
+# class WHUBuildingDataset(Dataset):
+#     def __init__(self, data_root='../autodl-tmp/data/UVData/train', mode='train', img_dir='images', mask_dir='masks',
+#                  img_suffix='.tif', mask_suffix='.tif', transform=None, mosaic_ratio=0.25,
+#                  img_size=ORIGIN_IMG_SIZE):
+#         self.data_root = data_root
+#         self.img_dir = img_dir
+#         self.mask_dir = mask_dir
+#         self.img_suffix = img_suffix
+#         self.mask_suffix = mask_suffix
+#         self.transform = transform
+#         self.mode = mode
+#         self.mosaic_ratio = mosaic_ratio
+#         self.img_size = img_size
+#         self.img_ids = self.get_img_ids(self.data_root, self.img_dir, self.mask_dir)
+
+#     def __getitem__(self, index):
+#         p_ratio = random.random()
+#         if p_ratio > self.mosaic_ratio or self.mode == 'val' or self.mode == 'test':
+#             img, mask = self.load_img_and_mask(index)
+#             if self.transform:
+#                 img, mask = self.transform(img, mask)
+#         else:
+#             img, mask = self.load_mosaic_img_and_mask(index)
+#             if self.transform:
+#                 img, mask = self.transform(img, mask)
+
+#         img = torch.from_numpy(img).permute(2, 0, 1).float()
+#         mask = torch.from_numpy(mask).long()
+#         img_id = self.img_ids[index]
+#         results = dict(img_id=img_id, img=img, gt_semantic_seg=mask)
+#         return results
+
+#     def __len__(self):
+#         return len(self.img_ids)
+
+#     def get_img_ids(self, data_root, img_dir, mask_dir):
+# #         img_filename_list = os.listdir(osp.join(data_root, img_dir))
+# #         mask_filename_list = os.listdir(osp.join(data_root, mask_dir))
+#             # 列出目录中的文件，并过滤掉 .ipynb_checkpoints 文件夹
+#         img_path = os.path.join(data_root, img_dir)
+#         mask_path = os.path.join(data_root, mask_dir)
+#         img_filename_list = [f for f in os.listdir(img_path) if not f.startswith('.ipynb_checkpoints')]
+#         mask_filename_list = [f for f in os.listdir(mask_path) if not f.startswith('.ipynb_checkpoints')]
+        
+#         assert len(img_filename_list) == len(mask_filename_list)
+#         img_ids = [str(id.split('.')[0]) for id in mask_filename_list]
+#         return img_ids
+
+#     def load_img_and_mask(self, index):
+#         img_id = self.img_ids[index]
+#         img_name = osp.join(self.data_root, self.img_dir, img_id + self.img_suffix)
+#         mask_name = osp.join(self.data_root, self.mask_dir, img_id + self.mask_suffix)
+#         img = Image.open(img_name).convert('RGB')
+#         mask = Image.open(mask_name).convert('L')
+#         return img, mask
+
+#     def load_mosaic_img_and_mask(self, index):
+#         indexes = [index] + [random.randint(0, len(self.img_ids) - 1) for _ in range(3)]
+#         img_a, mask_a = self.load_img_and_mask(indexes[0])
+#         img_b, mask_b = self.load_img_and_mask(indexes[1])
+#         img_c, mask_c = self.load_img_and_mask(indexes[2])
+#         img_d, mask_d = self.load_img_and_mask(indexes[3])
+
+#         img_a, mask_a = np.array(img_a), np.array(mask_a)
+#         img_b, mask_b = np.array(img_b), np.array(mask_b)
+#         img_c, mask_c = np.array(img_c), np.array(mask_c)
+#         img_d, mask_d = np.array(img_d), np.array(mask_d)
+
+#         w = self.img_size[1]
+#         h = self.img_size[0]
+
+#         start_x = w // 4
+#         strat_y = h // 4
+#         # The coordinates of the splice center
+#         offset_x = random.randint(start_x, (w - start_x))
+#         offset_y = random.randint(strat_y, (h - strat_y))
+
+#         crop_size_a = (offset_x, offset_y)
+#         crop_size_b = (w - offset_x, offset_y)
+#         crop_size_c = (offset_x, h - offset_y)
+#         crop_size_d = (w - offset_x, h - offset_y)
+
+#         random_crop_a = albu.RandomCrop(width=crop_size_a[0], height=crop_size_a[1])
+#         random_crop_b = albu.RandomCrop(width=crop_size_b[0], height=crop_size_b[1])
+#         random_crop_c = albu.RandomCrop(width=crop_size_c[0], height=crop_size_c[1])
+#         random_crop_d = albu.RandomCrop(width=crop_size_d[0], height=crop_size_d[1])
+
+#         croped_a = random_crop_a(image=img_a.copy(), mask=mask_a.copy())
+#         croped_b = random_crop_b(image=img_b.copy(), mask=mask_b.copy())
+#         croped_c = random_crop_c(image=img_c.copy(), mask=mask_c.copy())
+#         croped_d = random_crop_d(image=img_d.copy(), mask=mask_d.copy())
+
+#         img_crop_a, mask_crop_a = croped_a['image'], croped_a['mask']
+#         img_crop_b, mask_crop_b = croped_b['image'], croped_b['mask']
+#         img_crop_c, mask_crop_c = croped_c['image'], croped_c['mask']
+#         img_crop_d, mask_crop_d = croped_d['image'], croped_d['mask']
+
+#         top = np.concatenate((img_crop_a, img_crop_b), axis=1)
+#         bottom = np.concatenate((img_crop_c, img_crop_d), axis=1)
+#         img = np.concatenate((top, bottom), axis=0)
+
+#         top_mask = np.concatenate((mask_crop_a, mask_crop_b), axis=1)
+#         bottom_mask = np.concatenate((mask_crop_c, mask_crop_d), axis=1)
+#         mask = np.concatenate((top_mask, bottom_mask), axis=0)
+#         mask = np.ascontiguousarray(mask)
+#         img = np.ascontiguousarray(img)
+
+#         img = Image.fromarray(img)
+#         mask = Image.fromarray(mask)
+
+#         return img, mask
+
+
+
+
+CLASSES = ('Building', 'Background')
+PALETTE = [[255, 255, 255], [0, 0, 0]]
+
+ORIGIN_IMG_SIZE = (256, 256)
+INPUT_IMG_SIZE = (256, 256)
+TEST_IMG_SIZE = (256, 256)
+
+# 1. 自定义多通道 Normalize
+def normalize_multichannel(img):
+    # img: (H,W,C)
+    # 将每个通道归一化到 [0,1]
+    img = img.astype(np.float32)
+    img = img / 255.0
+    return img
+
+# 2. 替换 albumentations transform
+def get_training_transform():
+    train_transform = [
+        albu.HorizontalFlip(p=0.5),
+        albu.VerticalFlip(p=0.5)
+        # 不再使用 albumentations.Normalize
+    ]
+    return albu.Compose(train_transform)
+
+def get_val_transform():
+    # 仅保留原图
+    return albu.Compose([])
+
+def train_aug(img, mask):
+    img, mask = np.array(img), np.array(mask)
+    aug = get_training_transform()(image=img.copy(), mask=mask.copy())
+    img, mask = aug['image'], aug['mask']
+    img = normalize_multichannel(img)
+    return img, mask
+
+def val_aug(img, mask):
+    img, mask = np.array(img), np.array(mask)
+    # 不进行 albumentations Normalize
+    img = normalize_multichannel(img)
+    return img, mask
+
+
+class WHUBuildingDataset(Dataset):
+    def __init__(self, data_root='../autodl-tmp/data/UVData/train', mode='train',
+                 img_dir='images', mask_dir='masks', img_suffix='.tif', mask_suffix='.tif',
+                 transform=None, embed_root='../autodl-tmp/embed/UVData/train', mosaic_ratio=0.25, img_size=ORIGIN_IMG_SIZE):
+        self.data_root = data_root
+        self.img_dir = img_dir
+        self.mask_dir = mask_dir
+        self.img_suffix = img_suffix
+        self.mask_suffix = mask_suffix
+        self.transform = transform
+        self.mode = mode
+        self.mosaic_ratio = mosaic_ratio
+        self.img_size = img_size
+        self.img_ids = self.get_img_ids()
+        self.embed_root = embed_root  # 嵌入路径
+
+    def __getitem__(self, index):
+        # 1. 加载影像和掩膜
+        p_ratio = random.random()
+        if p_ratio > self.mosaic_ratio or self.mode in ['val', 'test']:
+            img, mask = self.load_img_and_mask(index)
+        else:
+            img, mask = self.load_mosaic_img_and_mask(index)
+
+        # 2. 加载嵌入
+        embed = None
+        if self.embed_root is not None:
+            embed = self.load_embed(index)  # 你需要自己写这个函数
+
+        # 3. 数据增强
+        if self.transform:
+            img, mask = self.transform(img, mask)
+
+        # 4. 转 tensor
+        img = torch.from_numpy(img).permute(2, 0, 1).float()   # (C,H,W)
+        mask = torch.from_numpy(mask).long()                   # (H,W)
+
+        if embed is not None:
+            embed = torch.from_numpy(embed).permute(2, 0, 1).float()  # 假设 (H,W,C) -> (C,H,W)
+
+        # 5. 返回
+        return {
+            "img_id": self.img_ids[index],
+            "img": img,
+            "gt_semantic_seg": mask,
+            "embed": embed if embed is not None else torch.empty(0)  # 防止 test.py 报错
+        }
+
+    def __len__(self):
+        return len(self.img_ids)
+ 
+ 
+    def load_embed(self, index):
+        img_id = self.img_ids[index]
+        embed_name = osp.join(self.embed_root, 'images', img_id + '.tif')
+        embed = tifffile.imread(embed_name).astype(np.float32)  # (H,W,C)
+        return embed
+
+    def __len__(self):
+        return len(self.img_ids)
+
+    def get_img_ids(self):
+        img_path = osp.join(self.data_root, self.img_dir)
+        mask_path = osp.join(self.data_root, self.mask_dir)
+        img_filename_list = [f for f in os.listdir(img_path) if not f.startswith('.')]
+        mask_filename_list = [f for f in os.listdir(mask_path) if not f.startswith('.')]
+        assert len(img_filename_list) == len(mask_filename_list)
+        return [str(f.split('.')[0]) for f in mask_filename_list]
+
+    def load_img_and_mask(self, index):
+        img_id = self.img_ids[index]
+        img_name = osp.join(self.data_root, self.img_dir, img_id + self.img_suffix)
+        mask_name = osp.join(self.data_root, self.mask_dir, img_id + self.mask_suffix)
+
+        # tifffile 可以读取任意通道数
+        img = tifffile.imread(img_name).astype(np.float32)  # (H,W,C) 或 (H,W)
+        mask = tifffile.imread(mask_name).astype(np.int64)  # (H,W)
+
+        # 如果 mask 是三维，取第一通道
+        if mask.ndim == 3:
+            mask = mask[:, :, 0]
+
+        return img, mask
+
+    def load_mosaic_img_and_mask(self, index):
+        indexes = [index] + [random.randint(0, len(self.img_ids) - 1) for _ in range(3)]
+        imgs, masks = [], []
+        for idx in indexes:
+            img, mask = self.load_img_and_mask(idx)
+            imgs.append(img)
+            masks.append(mask)
+
+        # mosaic 切割中心
+        w, h = self.img_size[1], self.img_size[0]
+        cx = random.randint(w // 4, 3 * w // 4)
+        cy = random.randint(h // 4, 3 * h // 4)
+
+        # 切割四张图
+        img_a = imgs[0][:cy, :cx]
+        img_b = imgs[1][:cy, cx:]
+        img_c = imgs[2][cy:, :cx]
+        img_d = imgs[3][cy:, cx:]
+        mask_a = masks[0][:cy, :cx]
+        mask_b = masks[1][:cy, cx:]
+        mask_c = masks[2][cy:, :cx]
+        mask_d = masks[3][cy:, cx:]
+
+        # 拼接 mosaic
+        top = np.concatenate([img_a, img_b], axis=1)
+        bottom = np.concatenate([img_c, img_d], axis=1)
+        img = np.concatenate([top, bottom], axis=0)
+
+        top_mask = np.concatenate([mask_a, mask_b], axis=1)
+        bottom_mask = np.concatenate([mask_c, mask_d], axis=1)
+        mask = np.concatenate([top_mask, bottom_mask], axis=0)
+
+        return img, mask
