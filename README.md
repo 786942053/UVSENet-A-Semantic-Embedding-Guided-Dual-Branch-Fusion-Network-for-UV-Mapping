@@ -5,6 +5,9 @@ The annotated UV dataset can be downloaded from [...](https://pan.baidu.com/s/1D
 
 > Official implementation of “UVSENet: A Semantic-Embedded dual branch fusion network for urban villages mapping”
 > [International Journal of Applied Earth Observation and Geoinformation], [2026]
+[![Paper]([![Paper](https://img.shields.io/badge/Paper-PDF-red)]([[Paper Link](https://authors.elsevier.com/sd/article/S1569-8432(26)00353-5)]))]([Paper Link])
+
+
 
 # Environment Setup
 Requirements
