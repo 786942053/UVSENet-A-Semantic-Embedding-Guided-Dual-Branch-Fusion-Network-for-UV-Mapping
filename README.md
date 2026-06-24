@@ -2,7 +2,7 @@
 
 > Official implementation of “UVSENet: A Semantic-Embedded dual branch fusion network for urban villages mapping”
 > [International Journal of Applied Earth Observation and Geoinformation], [2026]
-[![Paper]([![Paper](https://img.shields.io/badge/Paper-PDF-red)]([[Paper Link](https://authors.elsevier.com/sd/article/S1569-8432(26)00353-5)]))]
+[([[Paper Link](https://authors.elsevier.com/sd/article/S1569-8432(26)00353-5)]))]
 
 <img width="554" height="382" alt="image" src="https://github.com/user-attachments/assets/d5407065-c2d5-4caa-8efb-6f42a36873cc" />
 
