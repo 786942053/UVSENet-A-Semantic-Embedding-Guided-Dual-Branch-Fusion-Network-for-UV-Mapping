@@ -141,17 +141,7 @@ This project is built upon or inspired by:
 * Repository1: https://github.com/Henryjiepanli/Uncertainty-aware-Network
 * paper 1 and data 1: https://doi.org/10.1016/j.jag.2025.104631
   
-## If you use our code, models, or dataset processing pipeline in your research, please cite our paper:
 
-@article{[citation_key],
-  title     = {UVSENet: A Semantic-Embedded dual branch fusion network for urban villages mapping},
-  author    = {Shaobo Qiu and Shi Shen and Changqing Song and Cansong Li},
-  journal   = {International Journal of Applied Earth Observation and Geoinformation},
-  year      = {2026},
-  volume    = {152},
-  article   = {105437},
-  doi       = {10.1016/j.jag.2026.105437}
-}
 ## Citation
 
 If you use our code, models, or dataset processing pipeline in your research, please cite our paper:
