@@ -5,7 +5,7 @@ The annotated UV dataset can be downloaded from [...](https://pan.baidu.com/s/1D
 
 > Official implementation of “UVSENet: A Semantic-Embedded dual branch fusion network for urban villages mapping”
 > [International Journal of Applied Earth Observation and Geoinformation], [2026]
-[![Paper]([![Paper](https://img.shields.io/badge/Paper-PDF-red)]([[Paper Link](https://authors.elsevier.com/sd/article/S1569-8432(26)00353-5)]))]([Paper Link])
+[![Paper]([![Paper](https://img.shields.io/badge/Paper-PDF-red)]([[Paper Link](https://authors.elsevier.com/sd/article/S1569-8432(26)00353-5)]))]
 
 
 
@@ -15,54 +15,6 @@ Python: [> 3.8]
 PyTorch: [> 1.8.1]
 CUDA: [ > 11.1]
 Operating System: [Linux]
-
-# [Project Name]
-
-> Official implementation of **“[Paper Title]”**
-> [Conference / Journal], [Year]
-
-[![Paper]([![Paper](https://img.shields.io/badge/Paper-PDF-red)]([[Paper Link](https://authors.elsevier.com/sd/article/S1569-8432(26)00353-5)]))]([Paper Link])
-[![License](https://img.shields.io/badge/License-[License Name]-blue)](LICENSE)
-
-## Overview
-
-This repository contains the official implementation of:
-
-> **[Paper Title]**
-> [Author 1], [Author 2], [Author 3], et al.
-> *[Conference / Journal], [Year]*
-
-Our method is designed for **[briefly describe the research task, e.g., urban village segmentation / remote sensing image classification / object detection]**.
-
-### Main Features
-
-* [Feature 1: e.g., Supports training and inference.]
-* [Feature 2: e.g., Provides preprocessing scripts.]
-* [Feature 3: e.g., Includes pretrained model checkpoints.]
-* [Feature 4: e.g., Reproduces the main experimental results in the paper.]
-
----
-
-## Repository Structure
-
-```text
-[project_name]/
-├── configs/                 # Configuration files
-├── data/                    # Dataset directory
-├── datasets/                # Dataset loading and preprocessing code
-├── models/                  # Model definitions
-├── scripts/                 # Training/testing scripts
-├── tools/                   # Utility scripts
-├── checkpoints/             # Pretrained model checkpoints
-├── outputs/                 # Prediction results and logs
-├── train.py                 # Training entry point
-├── test.py                  # Testing entry point
-├── inference.py             # Inference entry point
-├── requirements.txt         # Python dependencies
-└── README.md
-```
-
----
 
 ## Environment Setup
 
