@@ -1,12 +1,10 @@
 # UVSENet: A Semantic-Embedded Dual Branch Fusion Network for Urban Villages Mapping
-The published dataset used in this study was obtained from Ref. (https://doi.org/10.1016/j.jag.2025.104631), and the trained weight files corresponding to models trained on the custom dataset and the published dataset, respectively, are available for download at (https://pan.baidu.com/s/1CZ9vQB22jRQSlaGxGRkpHg?pwd=rxw9)
-We are pleased to announce that our paper has been accepted for publication in The International Journal of Applied Earth Observation and Geoinformation. The complete code has been uploaded.
-The annotated UV dataset can be downloaded from [...](https://pan.baidu.com/s/1D1LuZQiZSGipq9v7njAppA?pwd=8djc)
 
 > Official implementation of “UVSENet: A Semantic-Embedded dual branch fusion network for urban villages mapping”
 > [International Journal of Applied Earth Observation and Geoinformation], [2026]
 [![Paper]([![Paper](https://img.shields.io/badge/Paper-PDF-red)]([[Paper Link](https://authors.elsevier.com/sd/article/S1569-8432(26)00353-5)]))]
 
+<img width="554" height="382" alt="image" src="https://github.com/user-attachments/assets/d5407065-c2d5-4caa-8efb-6f42a36873cc" />
 
 
 
@@ -136,19 +134,12 @@ python inference.py \
 ```
 
 
-## License
-
-This project is released under the [License Name] License. See the [LICENSE](LICENSE) file for details.
-
----
-
-
 ## Acknowledgements
 
 This project is built upon or inspired by:
 
 * Repository1: https://github.com/Henryjiepanli/Uncertainty-aware-Network
-* paper 1 and data 1: https://www.sciencedirect.com/science/article/pii/S156984322500278X
+* paper 1 and data 1: https://doi.org/10.1016/j.jag.2025.104631
   
 ## If you use our code, models, or dataset processing pipeline in your research, please cite our paper:
 
