@@ -51,52 +51,29 @@ Organize the dataset as follows:
 data/
 ├── train/
 │   ├── images/
-│   └── labels/
+│   └── masks/
 ├── val/
 │   ├── images/
-│   └── labels/
+│   └── masks/
+└── test/
+    └── images/
+    └── masks/
+embed
+├── train/
+│   └── images/
+├── val/
+│   └── images/
 └── test/
     └── images/
 ```
 
-### Data Preprocessing
-
-Run the preprocessing script:
-
-```bash
-python tools/preprocess.py \
-    --input_dir data/raw \
-    --output_dir data/processed
-```
-
-For custom datasets, ensure that:
-
-* Images are stored in `[image format, e.g., JPG / PNG / TIFF]`.
-* Labels are stored in `[label format, e.g., PNG / JSON / TXT]`.
-* Image-label filenames are matched correctly.
-* Dataset paths are updated in `[config file path]`.
-
----
 
 ## Pretrained Models
 
-Download pretrained weights from:
+Download pretrained weights from UVSENet:
 
-* [Model name]: [Download link]
+* [https://pan.baidu.com/s/1CZ9vQB22jRQSlaGxGRkpHg?pwd=rxw9]
 
-Place the checkpoint file in:
-
-```text
-checkpoints/
-└── [checkpoint_name].pth
-```
-
-Example:
-
-```bash
-mkdir -p checkpoints
-wget [checkpoint_download_link] -O checkpoints/[checkpoint_name].pth
-```
 
 ---
 
@@ -105,40 +82,9 @@ wget [checkpoint_download_link] -O checkpoints/[checkpoint_name].pth
 Train the model using the default configuration:
 
 ```bash
-python train.py \
-    --config configs/[config_name].yaml \
-    --output_dir outputs/[experiment_name]
+CUDA_VISIBLE_DEVICES=0 python train.py -c config/UVData/UVSENet.py
 ```
 
-For multi-GPU training:
-
-```bash
-torchrun --nproc_per_node=[number_of_gpus] train.py \
-    --config configs/[config_name].yaml \
-    --output_dir outputs/[experiment_name]
-```
-
-Important arguments:
-
-| Argument       | Description                        |
-| -------------- | ---------------------------------- |
-| `--config`     | Path to the configuration file     |
-| `--output_dir` | Directory for logs and checkpoints |
-| `--batch_size` | Training batch size                |
-| `--epochs`     | Number of training epochs          |
-| `--lr`         | Learning rate                      |
-| `--resume`     | Resume training from a checkpoint  |
-
-Example:
-
-```bash
-python train.py \
-    --config configs/[config_name].yaml \
-    --batch_size 8 \
-    --epochs 100 \
-    --lr 0.0001 \
-    --output_dir outputs/experiment_01
-```
 
 ---
 
@@ -147,20 +93,15 @@ python train.py \
 Evaluate a trained model:
 
 ```bash
-python test.py \
-    --config configs/[config_name].yaml \
-    --checkpoint checkpoints/[checkpoint_name].pth \
-    --data_dir data/test
+CUDA_VISIBLE_DEVICES=0 python test.py -c config/UVData/UVSENet.py -o test_results/UVData/UVSENet/ --rgb
 ```
 
 Evaluation results will be saved in:
 
 ```text
-outputs/
-└── [experiment_name]/
-    ├── metrics.txt
-    ├── predictions/
-    └── visualizations/
+test_results/
+└── UVData/
+    └── UVSENet/
 ```
 
 ---
