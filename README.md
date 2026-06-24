@@ -23,10 +23,10 @@ Operating System: Linux
 
 ### Requirements
 
-* Python: `[e.g., 3.10]`
-* PyTorch: `[e.g., 2.3.1]`
-* CUDA: `[e.g., 12.1]`
-* Operating System: `[e.g., Ubuntu 20.04 / Windows 11]`
+* Python: `[> 3.8]`
+* PyTorch: `[> 1.8.1]`
+* CUDA: `[> 11.1]`
+* Operating System: `[Linux]`
 
 ### Installation
 
