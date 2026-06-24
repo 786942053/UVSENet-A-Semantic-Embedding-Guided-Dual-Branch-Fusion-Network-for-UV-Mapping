@@ -22,7 +22,7 @@ The annotated UV dataset can be downloaded from [...](https://pan.baidu.com/s/1D
 ### Installation
 
 ```bash
-cd [UVSENet_mian]
+cd UVSENet_mian
 ```
 
 Install dependencies:
