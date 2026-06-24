@@ -11,10 +11,10 @@ The annotated UV dataset can be downloaded from [...](https://pan.baidu.com/s/1D
 
 # Environment Setup
 Requirements
-Python: [> 3.8]
-PyTorch: [> 1.8.1]
-CUDA: [ > 11.1]
-Operating System: [Linux]
+Python: > 3.8
+PyTorch: > 1.8.1
+CUDA: > 11.1
+Operating System: Linux
 
 ## Environment Setup
 
