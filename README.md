@@ -9,15 +9,6 @@ The annotated UV dataset can be downloaded from [...](https://pan.baidu.com/s/1D
 
 
 
-# Environment Setup
-Requirements
-Python: > 3.8
-
-PyTorch: > 1.8.1
-
-CUDA: > 11.1
-
-Operating System: Linux
 
 ## Environment Setup
 
@@ -30,18 +21,8 @@ Operating System: Linux
 
 ### Installation
 
-Create and activate a Conda environment:
-
 ```bash
-conda create -n [environment_name] python=[python_version]
-conda activate [environment_name]
-```
-
-Clone this repository:
-
-```bash
-git clone [repository_url]
-cd [project_name]
+cd [UVSENet_mian]
 ```
 
 Install dependencies:
@@ -50,35 +31,14 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Install PyTorch manually when necessary:
-
-```bash
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu[CUDA_VERSION]
-```
-
-Verify the installation:
-
-```bash
-python -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"
-```
-
-Expected output:
-
-```text
-[PyTorch version]
-True
-```
-
----
-
 ## Dataset Preparation
 
 ### Dataset Download
 
 Download the dataset from:
 
-* Dataset: [Dataset name]
-* Download link: [Dataset link]
+* Dataset: [obtained from Ref. (https://doi.org/10.1016/j.jag.2025.104631)]
+* Download link: [[Dataset link](https://pan.baidu.com/s/1CZ9vQB22jRQSlaGxGRkpHg?pwd=rxw9)]
 * Access instructions: [Required registration / password / agreement, if applicable]
 
 ### Dataset Structure
