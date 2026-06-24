@@ -135,100 +135,6 @@ python inference.py \
     --output outputs/example_prediction.png
 ```
 
----
-
-## Reproducing Results
-
-The following table reports the main results from the paper.
-
-| Method   |   Dataset | Metric 1 | Metric 2 | Metric 3 |
-| -------- | --------: | -------: | -------: | -------: |
-| Baseline | [Dataset] |  [Value] |  [Value] |  [Value] |
-| Ours     | [Dataset] |  [Value] |  [Value] |  [Value] |
-
-To reproduce the reported result:
-
-```bash
-python test.py \
-    --config configs/[paper_setting].yaml \
-    --checkpoint checkpoints/[paper_checkpoint].pth
-```
-
-Note that minor differences may occur because of:
-
-* Random seeds;
-* GPU hardware;
-* CUDA and PyTorch versions;
-* Dataset preprocessing;
-* Floating-point computation differences.
-
----
-
-## Troubleshooting
-
-### 1. `ModuleNotFoundError`
-
-Install missing dependencies:
-
-```bash
-pip install [package_name]
-```
-
-Or reinstall all required packages:
-
-```bash
-pip install -r requirements.txt
-```
-
-### 2. CUDA Out of Memory
-
-Reduce the batch size:
-
-```bash
-python train.py --batch_size 2
-```
-
-You may also reduce image size or use mixed-precision training.
-
-### 3. Dataset Path Error
-
-Check the dataset path in:
-
-```text
-configs/[config_name].yaml
-```
-
-Ensure that the folder structure matches the format described in the **Dataset Preparation** section.
-
-### 4. Model Checkpoint Cannot Be Loaded
-
-Check that:
-
-* The checkpoint path is correct;
-* The model configuration matches the checkpoint;
-* PyTorch and CUDA versions are compatible;
-* The checkpoint file is fully downloaded.
-
----
-
-## Citation
-
-Please cite our paper if you find this repository useful:
-
-```bibtex
-@article{[citation_key],
-  title     = {[Paper Title]},
-  author    = {[Author 1] and [Author 2] and [Author 3]},
-  journal   = {[Journal Name]},
-  year      = {[Year]},
-  volume    = {[Volume]},
-  number    = {[Issue]},
-  pages     = {[Pages]},
-  doi       = {[DOI]}
-}
-```
-
----
 
 ## License
 
@@ -236,22 +142,22 @@ This project is released under the [License Name] License. See the [LICENSE](LIC
 
 ---
 
-## Contact
-
-For questions related to the code or paper, please contact:
-
-* Name: [Your Name]
-* Email: [Your Email]
-* GitHub: [Your GitHub Profile]
-
----
 
 ## Acknowledgements
 
 This project is built upon or inspired by:
 
-* [Repository / paper 1]
-* [Repository / paper 2]
-* [Dataset provider]
-* [Funding source, if applicable]
+* Repository1: https://github.com/Henryjiepanli/Uncertainty-aware-Network
+* paper 1 and data 1: https://www.sciencedirect.com/science/article/pii/S156984322500278X
+  
+## If you use our code, models, or dataset processing pipeline in your research, please cite our paper:
 
+@article{[citation_key],
+  title     = {UVSENet: A Semantic-Embedded dual branch fusion network for urban villages mapping},
+  author    = {Shaobo Qiu and Shi Shen and Changqing Song and Cansong Li},
+  journal   = {International Journal of Applied Earth Observation and Geoinformation},
+  year      = {2026},
+  volume    = {152},
+  article   = {105437},
+  doi       = {10.1016/j.jag.2026.105437}
+}
