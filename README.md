@@ -102,36 +102,9 @@ test_results/
     └── UVSENet/
 ```
 
+If you only want to train or perform inference using Sentinel-2 imagery, please use `train2.py`, `test2.py`, and related scripts.
+
 ---
-
-## Inference
-
-Run inference on a single image:
-
-```bash
-python inference.py \
-    --input [path_to_image] \
-    --checkpoint checkpoints/[checkpoint_name].pth \
-    --output outputs/inference_result.png
-```
-
-Run inference on a folder:
-
-```bash
-python inference.py \
-    --input_dir [path_to_image_folder] \
-    --checkpoint checkpoints/[checkpoint_name].pth \
-    --output_dir outputs/inference_results
-```
-
-Example:
-
-```bash
-python inference.py \
-    --input demo/example.jpg \
-    --checkpoint checkpoints/[checkpoint_name].pth \
-    --output outputs/example_prediction.png
-```
 
 
 ## Acknowledgements
