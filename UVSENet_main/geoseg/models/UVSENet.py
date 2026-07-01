@@ -303,9 +303,9 @@ class enUNet(nn.Module):
         # print('x5', x5.shape)
         return x1, x2, x3, x4, x5
 
-class UVNet(nn.Module):
+class UVSENet(nn.Module):
     def __init__(self, n_channels=64, n_classes=2, bilinear=True):
-        super(UVNet, self).__init__()
+        super(UVSENet, self).__init__()
         self.n_channels = n_channels
         self.n_classes = n_classes
         self.bilinear = bilinear
