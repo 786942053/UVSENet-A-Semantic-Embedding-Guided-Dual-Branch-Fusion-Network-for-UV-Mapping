@@ -7,7 +7,7 @@ from catalyst import utils
 # from geoseg.models.WavefuseNet import WavefuseNet
 # from geoseg.models.segformer import SegFormer
 from geoseg.models.UANet import UANet_VGG
-# from geoseg.models.UVSENet import UVNet
+# from geoseg.models.UVSENet import UVSENet
 # training hparam
 max_epoch = 300
 ignore_index = 255
@@ -78,7 +78,7 @@ strategy = None
 pretrained_ckpt_path = None
 resume_ckpt_path = None
 
-# net = UVNet(64,2,True)
+# net = UVSENet(64,2,True)
 # net = SegFormer(num_classes=2, phi="b2", pretrained=False)
 # net = WavefuseNet(**model_infos)
 net = UANet_VGG(channel=32,num_classes=num_classes)
