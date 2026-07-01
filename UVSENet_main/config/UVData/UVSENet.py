@@ -7,7 +7,7 @@ from catalyst import utils
 # from geoseg.models.WavefuseNet import WavefuseNet
 # from geoseg.models.SBHE import SBHE
 # from geoseg.models.DSGSF import U_GC_LSTM
-from geoseg.models.UVSENet import UVNet
+from geoseg.models.UVSENet import UVSENet
 # from geoseg.models.UANet import UANet_VGG
 # from geoseg.models.segformer import SegFormer
 # training hparam
@@ -80,7 +80,7 @@ pretrained_ckpt_path = None
 # pretrained_ckpt_path = 'model_weights/UVData/UVSENet/UVSENet.ckpt'
 resume_ckpt_path = None
 
-net = UVNet(67,2,True)
+net = UVSENet(67,2,True)
 # net.wmmf5.enable_vis(vis_dir="vis/HFE_SGCA", mode="mean")
 # net = WavefuseNet(**model_infos)
 # net = SBHE(in_channels2=3, out_channels2=2, in_channels1=64, out_channels1=2)
